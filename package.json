@@ -1,0 +1,15 @@
+{
+  "name": "terrain-randomizer",
+  "version": "1.0.0",
+  "scripts": {
+    "compile": "tsc pack.ts"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
+    "sass": "^1.92.1",
+    "typescript": "^5.9.2"
+  }
+}
