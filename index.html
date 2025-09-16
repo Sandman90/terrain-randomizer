@@ -11,10 +11,6 @@
             text-align: center;
         }
 
-        #nav {
-
-        }
-
         #grid-container {
             display: grid;
             border: 1px solid black;
@@ -38,24 +34,29 @@
     </style>
 </head>
 <body>
+<div class="container clearfix m-auto my-1">
+    <div class="card float-start" style="width: 18rem;">
+        <!--img src="..." class="card-img-top" alt="..."-->
+        <div class="card-body">
+            <h1 class="card-title">Terrain randomizer</h1>
+            <p class="card-text">Select a map and randomize spawn point.</p>
 
-<h1 class="text-center">Terrain randomizer</h1>
-<div class="clearfix">
+            <button id="create-grid-btn" class="btn btn-primary m-1 mx-auto">Crea Griglia</button>
+            <button id="randomize-btn" class="btn btn-primary m-1 mx-auto">Lancia</button>
+
+            <div class="input-group mt-1">
+                <span class="input-group-text" id="basic-addon1">Righe</span>
+                <input id="rows" type="number" class="form-control" placeholder="15" value="15"
+                       aria-label="Righe" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mt-1">
+                <span class="input-group-text" id="basic-addon2">Colonne</span>
+                <input id="cols" type="number" class="form-control" placeholder="15" value="15"
+                       aria-label="Colonne" aria-describedby="basic-addon2">
+            </div>
+        </div>
+    </div>
     <div class="float-start container border-info col-2">
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Righe</span>
-            <input id="rows" type="number" class="form-control" placeholder="15" value="15"
-                   aria-label="Righe" aria-describedby="basic-addon1">
-        </div>
-
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon2">Colonne</span>
-            <input id="cols" type="number" class="form-control" placeholder="15" value="15"
-                   aria-label="Colonne" aria-describedby="basic-addon2">
-        </div>
-
-        <button id="create-grid-btn" class="btn btn-primary m-1 mx-auto">Crea Griglia</button>
-        <button id="randomize-btn" class="btn btn-primary m-1 mx-auto">Lancia</button>
     </div>
 
     <div id="grid-container"></div>
