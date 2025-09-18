@@ -25,12 +25,13 @@ export default function createGrid(rows: number, cols: number): void {
 
     // Active every square selected.
     const squares: NodeListOf<HTMLElement> = document.querySelectorAll('.grid-square');
-    addSquareListeners(squares);
+    addSquareListeners(squares, cols);
     // squares.forEach(square => square.addEventListener('mousedown', () => square.classList.add('active')));
 }
 
 // Funzione per aggiungere listener ai quadrati
-function addSquareListeners(squares: NodeListOf<HTMLElement>): void {
+function addSquareListeners(squares: NodeListOf<HTMLElement>, cols: number): void {
+    const squaresArray = Array.from(squares);
     squares.forEach(square => {
         square.addEventListener('mousedown', (e: MouseEvent) => {
             e.preventDefault();
@@ -38,6 +39,7 @@ function addSquareListeners(squares: NodeListOf<HTMLElement>): void {
                 isDraggingRightClick = true;
                 square.classList.remove('active');
             } else {
+                brush(squaresArray, e.target, squares, cols);
                 square.classList.add('active'); // Seleziona il primo quadrato
             }
             startSquare = square;
@@ -53,6 +55,7 @@ function addSquareListeners(squares: NodeListOf<HTMLElement>): void {
                 if (isDraggingRightClick) {
                     currentSquare.classList.remove('active', 'selected');
                 } else {
+                    brush(squaresArray, e.target, squares, cols);
                     currentSquare.classList.add('active');
                 }
                 selectedSquares.add(currentSquare);
@@ -70,4 +73,12 @@ function addSquareListeners(squares: NodeListOf<HTMLElement>): void {
             startSquare = null;
         }
     });
+}
+
+function brush(squaresArray: HTMLElement[], e: EventTarget | null, squares: NodeListOf<HTMLElement>, cols: number) {
+    const currentIndex = squaresArray.indexOf(e as HTMLElement);
+    const aboveIndex = currentIndex - cols;
+    const belowIndex = currentIndex + cols;
+    if (aboveIndex >= 0) squares[aboveIndex].classList.add('active');
+    if (belowIndex < squares.length) squares[belowIndex].classList.add('active');
 }

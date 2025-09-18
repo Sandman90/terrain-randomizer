@@ -8,13 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const randomizeBtn: HTMLButtonElement = document.getElementById('randomize-btn') as HTMLButtonElement;
     const rowsInput: HTMLInputElement = document.getElementById('rows') as HTMLInputElement;
     const colsInput: HTMLInputElement = document.getElementById('cols') as HTMLInputElement;
+    // Converte i valori degli input in numeri interi, gestendo potenziali valori non validi
+    const rows: number = parseInt(rowsInput.value);
+    const cols: number = parseInt(colsInput.value);
 
     // Active every square selected.
     createGridBtn.addEventListener('click', () => {
-        // Converte i valori degli input in numeri interi, gestendo potenziali valori non validi
-        const rows: number = parseInt(rowsInput.value);
-        const cols: number = parseInt(colsInput.value);
-
         // Verifica che i valori inseriti siano numeri positivi
         if (rows > 0 && cols > 0) {
             createGrid(rows, cols); // Chiama la funzione per creare la griglia
@@ -25,9 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Aggiunge i gestori degli eventi ai pulsanti
     createGridBtn.addEventListener('click', () => {
-        // Converte i valori degli input in numeri interi, gestendo potenziali valori non validi
-        const rows: number = parseInt(rowsInput.value);
-        const cols: number = parseInt(colsInput.value);
 
         // Verifica che i valori inseriti siano numeri positivi
         if (rows > 0 && cols > 0) {
