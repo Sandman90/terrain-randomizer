@@ -1,3 +1,5 @@
+import { BrushType, brush } from './brush';
+
 const gridContainer: HTMLElement = document.getElementById('grid-container') as HTMLElement;
 
 let isMouseDown = false;
@@ -6,7 +8,7 @@ let selectedSquares: Set<HTMLElement> = new Set(); // Usiamo un Set per evitare 
 let isDraggingRightClick = false;
 
 // Funzione per creare la griglia con annotazioni di tipo
-export default function createGrid(rows: number, cols: number): void {
+export default function createGrid(rows: number, cols: number, brushType: BrushType): void {
     // Pulisce il contenuto precedente del contenitore
     gridContainer.innerHTML = '';
 
@@ -25,12 +27,12 @@ export default function createGrid(rows: number, cols: number): void {
 
     // Active every square selected.
     const squares: NodeListOf<HTMLElement> = document.querySelectorAll('.grid-square');
-    addSquareListeners(squares, cols);
+    addSquareListeners(brushType, squares, cols);
     // squares.forEach(square => square.addEventListener('mousedown', () => square.classList.add('active')));
 }
 
 // Funzione per aggiungere listener ai quadrati
-function addSquareListeners(squares: NodeListOf<HTMLElement>, cols: number): void {
+function addSquareListeners(brushType: BrushType, squares: NodeListOf<HTMLElement>, cols: number): void {
     const squaresArray = Array.from(squares);
     squares.forEach(square => {
         square.addEventListener('mousedown', (e: MouseEvent) => {
@@ -39,7 +41,7 @@ function addSquareListeners(squares: NodeListOf<HTMLElement>, cols: number): voi
                 isDraggingRightClick = true;
                 square.classList.remove('active');
             } else {
-                brush(squaresArray, e.target, squares, cols);
+                brush(brushType, squaresArray, e.target, squares, cols);
                 square.classList.add('active'); // Seleziona il primo quadrato
             }
             startSquare = square;
@@ -55,7 +57,7 @@ function addSquareListeners(squares: NodeListOf<HTMLElement>, cols: number): voi
                 if (isDraggingRightClick) {
                     currentSquare.classList.remove('active', 'selected');
                 } else {
-                    brush(squaresArray, e.target, squares, cols);
+                    brush(brushType, squaresArray, e.target, squares, cols);
                     currentSquare.classList.add('active');
                 }
                 selectedSquares.add(currentSquare);
@@ -73,12 +75,4 @@ function addSquareListeners(squares: NodeListOf<HTMLElement>, cols: number): voi
             startSquare = null;
         }
     });
-}
-
-function brush(squaresArray: HTMLElement[], e: EventTarget | null, squares: NodeListOf<HTMLElement>, cols: number) {
-    const currentIndex = squaresArray.indexOf(e as HTMLElement);
-    const aboveIndex = currentIndex - cols;
-    const belowIndex = currentIndex + cols;
-    if (aboveIndex >= 0) squares[aboveIndex].classList.add('active');
-    if (belowIndex < squares.length) squares[belowIndex].classList.add('active');
 }

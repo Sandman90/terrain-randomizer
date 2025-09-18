@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colsInput: HTMLInputElement = document.getElementById('cols') as HTMLInputElement;
     const cols: number = parseInt(colsInput.value);
     createGridBtn.addEventListener('click', () => {
-        if (rows > 0 && cols > 0) createGrid(rows, cols); // Create grid.
+        if (rows > 0 && cols > 0) createGrid(rows, cols, 'cross'); // Create grid.
         else alert('Inserisci valori validi per righe e colonne.');
     });
 
@@ -17,5 +17,5 @@ document.addEventListener('DOMContentLoaded', () => {
     randomizeBtn.addEventListener('click', randomizeSquare); // Chiama la funzione di randomizzazione al click del pulsante
 
     // Crea una griglia di dimensioni predefinite all'avvio della pagina
-    createGrid(15, 15);
+    createGrid(15, 15, 'cross');
 });
