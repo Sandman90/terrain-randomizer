@@ -1,0 +1,73 @@
+const gridContainer: HTMLElement = document.getElementById('grid-container') as HTMLElement;
+
+let isMouseDown = false;
+let startSquare: HTMLElement | null = null;
+let selectedSquares: Set<HTMLElement> = new Set(); // Usiamo un Set per evitare duplicati
+let isDraggingRightClick = false;
+
+// Funzione per creare la griglia con annotazioni di tipo
+export default function createGrid(rows: number, cols: number): void {
+    // Pulisce il contenuto precedente del contenitore
+    gridContainer.innerHTML = '';
+
+    // Imposta i template per le righe e le colonne della griglia CSS
+    gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    gridContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    // Calcola la larghezza del contenitore in base al numero di colonne e alla dimensione dei quadrati + bordi
+    gridContainer.style.width = `${cols * 52}px`; // Assumendo che ogni quadrato sia 50px + 2px di bordo totale
+
+    // Crea i singoli quadrati della griglia
+    for (let i = 0; i < rows * cols; i++) {
+        const square: HTMLDivElement = document.createElement('div');
+        square.classList.add('grid-square');
+        gridContainer.appendChild(square);
+    }
+
+    // Active every square selected.
+    const squares: NodeListOf<HTMLElement> = document.querySelectorAll('.grid-square');
+    addSquareListeners(squares);
+    // squares.forEach(square => square.addEventListener('mousedown', () => square.classList.add('active')));
+}
+
+// Funzione per aggiungere listener ai quadrati
+function addSquareListeners(squares: NodeListOf<HTMLElement>): void {
+    squares.forEach(square => {
+        square.addEventListener('mousedown', (e: MouseEvent) => {
+            e.preventDefault();
+            if (e.button === 2) { // 0 è sinistro, 1 è centrale, 2 è destro
+                isDraggingRightClick = true;
+                square.classList.remove('active');
+            } else {
+                square.classList.add('active'); // Seleziona il primo quadrato
+            }
+            startSquare = square;
+            isMouseDown = true;
+            selectedSquares.clear(); // Pulisce le selezioni precedenti
+            selectedSquares.add(square);
+        });
+
+        square.addEventListener('mouseover', (e: MouseEvent) => {
+            if (!isMouseDown || !startSquare) return;
+            const currentSquare = e.target as HTMLElement;
+            if (currentSquare.classList.contains('grid-square') && !selectedSquares.has(currentSquare)) {
+                if (isDraggingRightClick) {
+                    currentSquare.classList.remove('active', 'selected');
+                } else {
+                    currentSquare.classList.add('active');
+                }
+                selectedSquares.add(currentSquare);
+            }
+        });
+    });
+
+    gridContainer.addEventListener('contextmenu', (e) => e.preventDefault());
+    // Listener globale per 'mouseup' per fermare il tracciamento
+    document.addEventListener('mouseup', (event: MouseEvent) => {
+        if (isDraggingRightClick || isMouseDown) {
+            event.preventDefault();
+            isDraggingRightClick = false;
+            isMouseDown = false;
+            startSquare = null;
+        }
+    });
+}
