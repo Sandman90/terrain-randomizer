@@ -1,38 +1,19 @@
 import randomizeSquare from "./functions/randomizeSquare";
 import createGrid from "./functions/grid";
 
-// On page load.
 document.addEventListener('DOMContentLoaded', () => {
-    // Seleziona gli elementi dal DOM e annota i loro tipi
-    const createGridBtn: HTMLButtonElement = document.getElementById('create-grid-btn') as HTMLButtonElement;
-    const randomizeBtn: HTMLButtonElement = document.getElementById('randomize-btn') as HTMLButtonElement;
-    const rowsInput: HTMLInputElement = document.getElementById('rows') as HTMLInputElement;
-    const colsInput: HTMLInputElement = document.getElementById('cols') as HTMLInputElement;
-    // Converte i valori degli input in numeri interi, gestendo potenziali valori non validi
-    const rows: number = parseInt(rowsInput.value);
-    const cols: number = parseInt(colsInput.value);
-
     // Active every square selected.
+    const createGridBtn: HTMLButtonElement = document.getElementById('create-grid-btn') as HTMLButtonElement;
+    const rowsInput: HTMLInputElement = document.getElementById('rows') as HTMLInputElement;
+    const rows: number = parseInt(rowsInput.value);
+    const colsInput: HTMLInputElement = document.getElementById('cols') as HTMLInputElement;
+    const cols: number = parseInt(colsInput.value);
     createGridBtn.addEventListener('click', () => {
-        // Verifica che i valori inseriti siano numeri positivi
-        if (rows > 0 && cols > 0) {
-            createGrid(rows, cols); // Chiama la funzione per creare la griglia
-        } else {
-            alert('Inserisci valori validi per righe e colonne.'); // Messaggio di errore se i valori non sono validi
-        }
+        if (rows > 0 && cols > 0) createGrid(rows, cols); // Create grid.
+        else alert('Inserisci valori validi per righe e colonne.');
     });
 
-    // Aggiunge i gestori degli eventi ai pulsanti
-    createGridBtn.addEventListener('click', () => {
-
-        // Verifica che i valori inseriti siano numeri positivi
-        if (rows > 0 && cols > 0) {
-            createGrid(rows, cols); // Chiama la funzione per creare la griglia
-        } else {
-            alert('Inserisci valori validi per righe e colonne.'); // Messaggio di errore se i valori non sono validi
-        }
-    });
-
+    const randomizeBtn: HTMLButtonElement = document.getElementById('randomize-btn') as HTMLButtonElement;
     randomizeBtn.addEventListener('click', randomizeSquare); // Chiama la funzione di randomizzazione al click del pulsante
 
     // Crea una griglia di dimensioni predefinite all'avvio della pagina
