@@ -17,24 +17,27 @@
             <p class="card-text">Select a map and randomize spawn point.</p>
 
             <button id="create-grid-btn" class="btn btn-primary m-1 mx-auto">Crea Griglia</button>
-            <button id="randomize-btn" class="btn btn-primary m-1 mx-auto">Lancia</button>
-
             <div class="input-group mt-1">
                 <span class="input-group-text" id="basic-addon1">Righe</span>
-                <input id="rows" type="number" class="form-control" placeholder="15" value="15"
+                <input id="rows" type="number" class="form-control" placeholder="10" value="10"
                        aria-label="Righe" aria-describedby="basic-addon1">
             </div>
             <div class="input-group mt-1">
                 <span class="input-group-text" id="basic-addon2">Colonne</span>
-                <input id="cols" type="number" class="form-control" placeholder="15" value="15"
+                <input id="cols" type="number" class="form-control" placeholder="10" value="10"
                        aria-label="Colonne" aria-describedby="basic-addon2">
             </div>
+
+            <hr>
+            <button id="randomize-btn" class="btn btn-primary m-1 mx-auto">Lancia</button>
+            <hr>
+            <button id="clear-btn" class="btn btn-danger m-1 mx-auto">Pulisci mappa</button>
         </div>
     </div>
-    <div class="float-start container border-info col-2">
-    </div>
 
-    <div id="grid-container"></div>
+    <div class="float-start container border-info col-2">
+        <div id="grid-container" class="m-0"></div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
