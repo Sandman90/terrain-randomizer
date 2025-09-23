@@ -6,7 +6,7 @@ body {
     display: grid;
     border: 1px solid black;
     margin: 20px auto;
-    background: url("../images/BackgroundTerrain3.jpg");
+    background: url("../images/BackgroundTerrain2.jpg");
     grid-gap: 0;
 }
 

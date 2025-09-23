@@ -34,27 +34,57 @@
             </div>
 
             <hr>
-            <button id="randomize-btn" class="btn btn-primary m-1 mx-auto">Lancia</button>
-            <button id="clear-btn" class="btn btn-danger m-1 mx-auto">Pulisci mappa</button>
+            <button id="randomize-btn" class="btn btn-primary btn-lg m-1 mx-auto">Lancia</button>
+            <button id="clear-btn" class="btn btn-outline-danger m-1 mx-auto">Pulisci mappa</button>
+
             <hr>
-            Brushes...
+            <h5>Brushes...</h5>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Point</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">Cross</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                <label class="form-check-label" for="inlineRadio3">Square</label>
+            </div>
+            <h5 class="mt-3">Sfondi...</h5>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <label class="form-check-label" for="inlineRadio1">Terra</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="inlineRadio2">Roccia</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                <label class="form-check-label" for="inlineRadio3">Legno</label>
+            </div>
+
             <hr>
+
             <div class="form-inline">
                 <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Label</div>
                     </div>
-                    <label for="map-name"></label>
                     <input type="text" class="form-control" id="map-name" placeholder="Mappa">
+                    <div class="input-group-append">
+                        <button id="save-btn" class="btn btn-outline-info">Salva</button>
+                        <!-- button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button -->
+                    </div>
                 </div>
-                <button id="save-btn" class="btn btn-info m-1 mx-auto">Salva</button>
             </div>
 
             <div>
                 <div class="form-group">
                     <!-- label for="exampleFormControlSelect2">Example multiple select</label -->
                     <label for="map-names"></label>
-                    <select multiple class="form-control" id="map-names"></select>
+                    <select size="3" class="form-control" id="map-names"></select>
                 </div>
                 <button id="load-btn" class="btn btn-dark m-2 mx-auto">Carica mappa</button>
                 <button id="delete-btn" class="btn btn-danger m-2 mx-auto">Cancella</button>
