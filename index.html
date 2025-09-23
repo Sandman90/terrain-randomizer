@@ -13,11 +13,10 @@
     <div class="card float-start" style="width: 18rem;">
         <!--img src="..." class="card-img-top" alt="..."-->
         <div class="card-body">
-            <h1 class="card-title">Terrain randomizer</h1>
+            <h4 class="card-title">Terrain randomizer</h4>
             <p class="card-text">Select a map and randomize spawn point.</p>
 
-            <button id="create-grid-btn" class="btn btn-primary m-1 mx-auto">Crea Griglia</button>
-            <div class="input-group mt-1">
+            <!-- div class="input-group mt-1">
                 <span class="input-group-text" id="basic-addon1">Righe</span>
                 <input id="rows" type="number" class="form-control" placeholder="10" value="10"
                        aria-label="Righe" aria-describedby="basic-addon1">
@@ -26,15 +25,42 @@
                 <span class="input-group-text" id="basic-addon2">Colonne</span>
                 <input id="cols" type="number" class="form-control" placeholder="10" value="10"
                        aria-label="Colonne" aria-describedby="basic-addon2">
+            </div -->
+            <div class="form-group">
+                <label for="grid-range" id="grid-label" class="text-start">15x15</label><br>
+                <input type="range" class="form-control-range" id="grid-range"
+                       min="10" max="25" value="15">
+                <button id="create-grid-btn" class="btn btn-primary btn-sm">Crea Griglia</button>
             </div>
 
             <hr>
             <button id="randomize-btn" class="btn btn-primary m-1 mx-auto">Lancia</button>
-            <hr>
             <button id="clear-btn" class="btn btn-danger m-1 mx-auto">Pulisci mappa</button>
             <hr>
-            <button id="save-btn" class="btn btn-info m-1 mx-auto">Salva mappa</button>
-            <button id="load-btn" class="btn btn-dark m-1 mx-auto">Carica mappa</button>
+            Brushes...
+            <hr>
+            <div class="form-inline">
+                <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Label</div>
+                    </div>
+                    <label for="map-name"></label>
+                    <input type="text" class="form-control" id="map-name" placeholder="Mappa">
+                </div>
+                <button id="save-btn" class="btn btn-info m-1 mx-auto">Salva</button>
+            </div>
+
+            <div>
+                <div class="form-group">
+                    <!-- label for="exampleFormControlSelect2">Example multiple select</label -->
+                    <label for="map-names"></label>
+                    <select multiple class="form-control" id="map-names"></select>
+                </div>
+                <button id="load-btn" class="btn btn-dark m-2 mx-auto">Carica mappa</button>
+                <button id="delete-btn" class="btn btn-danger m-2 mx-auto">Cancella</button>
+            </div>
+
+
         </div>
     </div>
 

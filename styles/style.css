@@ -6,7 +6,7 @@ body {
     display: grid;
     border: 1px solid black;
     margin: 20px auto;
-    background: url("../images/BackgroundTerrain1.jpg");
+    background: url("../images/BackgroundTerrain3.jpg");
     grid-gap: 0;
 }
 
@@ -23,5 +23,5 @@ body {
     /* background-color: #4bb24d; Active square color */
 }
 .selected {
-    background-color: #960f6b; /* Colore per il quadrato selezionato */
+    background-color: rgba(164, 1, 27, 0.82); /* Colore per il quadrato selezionato */
 }

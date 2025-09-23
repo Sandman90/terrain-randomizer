@@ -3,24 +3,35 @@ interface SquareState {
   s: boolean;
 }
 
+// Filter map name for technical ID.
+const mapNameFn = (mapName: string) => mapName.replaceAll(' ', '');
+
 // Assumendo che 'gridContainer' sia il contenitore della tua griglia
-export function saveMapToLocalStorage(gridContainer: HTMLElement): void {
+export function saveMapToLocalStorage(gridContainer: HTMLElement, mapName: string): void {
   const squares = Array.from(gridContainer.children) as HTMLElement[];
   const mapData: SquareState[] = squares.map(square => ({
     s: square.classList.contains('active')
   }));
+  const mapNameFiltered = mapNameFn(mapName);
+
+  // Add option to saved maps.
+  const mapNames = (document.getElementById('map-names') as HTMLSelectElement);
+  const newOption = document.createElement('option');
+  newOption.value = mapNameFiltered; // Il valore effettivo dell'opzione
+  newOption.textContent = mapName; // Il testo visibile all'utente
+  mapNames.appendChild(newOption);
 
   // Serializza i dati in una stringa JSON
   const serializedMap = JSON.stringify(mapData);
 
   // Salva la stringa nel LocalStorage con una chiave
-  localStorage.setItem('savedMap', serializedMap);
+  localStorage.setItem('savedMap_' + mapNameFiltered, serializedMap);
   console.log('Mappa salvata con successo.');
 }
 
-export function loadMapFromLocalStorage(gridContainer: HTMLElement): void {
+export function loadMapFromLocalStorage(gridContainer: HTMLElement, mapName: string): void {
   // Recupera la stringa serializzata
-  const serializedMap = localStorage.getItem('savedMap');
+  const serializedMap = localStorage.getItem('savedMap_' + mapNameFn(mapName));
 
   if (serializedMap) {
     try {
