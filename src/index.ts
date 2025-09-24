@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     radio.addEventListener('click', (e: Event) => back(gridContainer, ((e?.target as HTMLInputElement).value as BackType)));
   });
 
+  gridContainer.addEventListener('contextmenu', (e) => e.preventDefault());
   // Crea una griglia di dimensioni predefinite all'avvio della pagina
   createGrid(gridRows, gridCols, brushType as BrushType);
 });

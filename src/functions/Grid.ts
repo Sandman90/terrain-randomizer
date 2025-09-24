@@ -27,7 +27,6 @@ function createGrid(rows: number, cols: number, brushType: BrushType): void {
 
   // Active every square selected.
   addSquareListeners(brushType, cols);
-  gridContainer.addEventListener('contextmenu', (e) => e.preventDefault());
   // squares.forEach(square => square.addEventListener('mousedown', () => square.classList.add('active')));
 }
 
