@@ -6,7 +6,7 @@ function back(gridContainer: HTMLElement, backType: BackType) {
     case "rock": background = 2; break;
     case "wood": background = 3; break;
   }
-  gridContainer.style.backgroundImage = `url('../images/BackgroundTerrain${background}.jpg`;
+  gridContainer.style.backgroundImage = `url('./images/BackgroundTerrain${background}.jpg`;
 }
 
 export { BackType, back };
