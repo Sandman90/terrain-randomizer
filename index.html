@@ -9,8 +9,8 @@
     <link href="./styles/style.css" rel="stylesheet" crossorigin="anonymous" />
 </head>
 <body>
-<div class="container clearfix m-auto my-1">
-    <div class="card float-start" style="width: 18rem;">
+<div class="clearfix m-auto my-1">
+    <div class="card float-start m-1 mt-0 d-print-none" style="width: 18rem;">
         <!--img src="..." class="card-img-top" alt="..."-->
         <div class="card-body">
             <h4 class="card-title">Terrain randomizer</h4>
@@ -26,11 +26,17 @@
                 <input id="cols" type="number" class="form-control" placeholder="10" value="10"
                        aria-label="Colonne" aria-describedby="basic-addon2">
             </div -->
-            <div class="form-group">
-                <label for="grid-range" id="grid-label" class="text-start">15x15</label><br>
-                <input type="range" class="form-control-range" id="grid-range"
-                       min="10" max="25" value="15">
-                <button id="create-grid-btn" class="btn btn-primary btn-sm">Crea Griglia</button>
+            <div class="form-group row">
+                <div class="col-7">
+                    <input type="range" class="form-control-range" id="grid-range"
+                           min="10" max="25" value="15">
+                    <input type="range" class="form-control-range" id="grid-range-rows"
+                           min="10" max="25" value="15">
+                </div>
+                <div class="col-5">
+                    <button id="create-grid-btn" class="btn btn-primary btn-sm">Crea Griglia</button><br>
+                    <label for="grid-range" id="grid-label" class="text-start">15x15</label>
+                </div>
             </div>
 
             <hr>
@@ -40,29 +46,29 @@
             <hr>
             <h5>Brushes...</h5>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                <label class="form-check-label" for="inlineRadio1">Point</label>
+                <input class="form-check-input" type="radio" name="brush-options" id="brush-point" value="point">
+                <label class="form-check-label" for="brush-point">Point</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                <label class="form-check-label" for="inlineRadio2">Cross</label>
+                <input class="form-check-input" type="radio" name="brush-options" id="brush-cross" value="cross" checked="checked">
+                <label class="form-check-label" for="brush-cross">Cross</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                <label class="form-check-label" for="inlineRadio3">Square</label>
+                <input class="form-check-input" type="radio" name="brush-options" id="brush-box" value="box">
+                <label class="form-check-label" for="brush-box">Square</label>
             </div>
             <h5 class="mt-3">Sfondi...</h5>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                <label class="form-check-label" for="inlineRadio1">Terra</label>
+                <input class="form-check-input" type="radio" name="back-options" id="back-earth" value="earth" checked="checked">
+                <label class="form-check-label" for="back-earth">Earth</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                <label class="form-check-label" for="inlineRadio2">Roccia</label>
+                <input class="form-check-input" type="radio" name="back-options" id="back-rock" value="rock">
+                <label class="form-check-label" for="back-rock">Rock</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                <label class="form-check-label" for="inlineRadio3">Legno</label>
+                <input class="form-check-input" type="radio" name="back-options" id="back-wood" value="wood">
+                <label class="form-check-label" for="back-wood">Wood</label>
             </div>
 
             <hr>
@@ -94,7 +100,7 @@
         </div>
     </div>
 
-    <div class="float-start container border-info col-2">
+    <div class="float-start border-info col-2">
         <div id="grid-container" class="m-0"></div>
     </div>
 </div>

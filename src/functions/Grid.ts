@@ -8,7 +8,7 @@ let selectedSquares: Set<HTMLElement> = new Set(); // Usiamo un Set per evitare 
 let isDraggingRightClick = false;
 
 // Funzione per creare la griglia con annotazioni di tipo
-export default function createGrid(rows: number, cols: number, brushType: BrushType): void {
+function createGrid(rows: number, cols: number, brushType: BrushType): void {
   // Pulisce il contenuto precedente del contenitore
   gridContainer.innerHTML = '';
 
@@ -26,16 +26,17 @@ export default function createGrid(rows: number, cols: number, brushType: BrushT
   }
 
   // Active every square selected.
-  const squares: NodeListOf<HTMLElement> = document.querySelectorAll('.grid-square');
-  addSquareListeners(brushType, squares, cols);
+  addSquareListeners(brushType, cols);
+  gridContainer.addEventListener('contextmenu', (e) => e.preventDefault());
   // squares.forEach(square => square.addEventListener('mousedown', () => square.classList.add('active')));
 }
 
 // Funzione per aggiungere listener ai quadrati
-function addSquareListeners(brushType: BrushType, squares: NodeListOf<HTMLElement>, cols: number): void {
+function addSquareListeners(brushType: BrushType, cols: number): void {
+  const squares: NodeListOf<HTMLElement> = document.querySelectorAll('.grid-square');
   const squaresArray = Array.from(squares);
   squares.forEach(square => {
-    square.addEventListener('mousedown', (e: MouseEvent) => {
+    const squareListener = (e: MouseEvent) => {
       e.preventDefault();
       if (e.button === 2) { // 0 è sinistro, 1 è centrale, 2 è destro
         isDraggingRightClick = true;
@@ -48,9 +49,11 @@ function addSquareListeners(brushType: BrushType, squares: NodeListOf<HTMLElemen
       isMouseDown = true;
       selectedSquares.clear(); // Pulisce le selezioni precedenti
       selectedSquares.add(square);
-    });
+    };
+    square.removeEventListener('mousedown', squareListener);
+    square.addEventListener('mousedown', squareListener);
 
-    square.addEventListener('mouseover', (e: MouseEvent) => {
+    const squareOverListener = (e: MouseEvent) => {
       if (!isMouseDown || !startSquare) return;
       const currentSquare = e.target as HTMLElement;
       if (currentSquare.classList.contains('grid-square') && !selectedSquares.has(currentSquare)) {
@@ -62,17 +65,22 @@ function addSquareListeners(brushType: BrushType, squares: NodeListOf<HTMLElemen
         }
         selectedSquares.add(currentSquare);
       }
-    });
+    };
+    square.removeEventListener('mouseover', squareOverListener);
+    square.addEventListener('mouseover', squareOverListener);
   });
 
-  gridContainer.addEventListener('contextmenu', (e) => e.preventDefault());
   // Listener globale per 'mouseup' per fermare il tracciamento
-  document.addEventListener('mouseup', (event: MouseEvent) => {
+  const squareUpListener = (event: MouseEvent) => {
     if (isDraggingRightClick || isMouseDown) {
       event.preventDefault();
       isDraggingRightClick = false;
       isMouseDown = false;
       startSquare = null;
     }
-  });
+  };
+  document.removeEventListener('mouseup', squareUpListener);
+  document.addEventListener('mouseup', squareUpListener);
 }
+
+export { createGrid, addSquareListeners };
