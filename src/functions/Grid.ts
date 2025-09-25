@@ -2,10 +2,10 @@ import { BrushType, brush } from './Brush';
 
 const gridContainer: HTMLElement = document.getElementById('grid-container') as HTMLElement;
 
-let isMouseDown = false;
-let startSquare: HTMLElement | null = null;
-let selectedSquares: Set<HTMLElement> = new Set(); // Usiamo un Set per evitare duplicati
-let isDraggingRightClick = false;
+// let isMouseDown = false;
+// let startSquare: HTMLElement | null = null;
+// let selectedSquares: Set<HTMLElement> = new Set(); // Usiamo un Set per evitare duplicati
+// let isDraggingRightClick = false;
 
 // Funzione per creare la griglia con annotazioni di tipo
 function createGrid(rows: number, cols: number, brushType: BrushType): void {
@@ -30,47 +30,73 @@ function createGrid(rows: number, cols: number, brushType: BrushType): void {
   // squares.forEach(square => square.addEventListener('mousedown', () => square.classList.add('active')));
 }
 
-// Funzione per aggiungere listener ai quadrati
-function addSquareListeners(brushType: BrushType, cols: number): void {
-  const squares: NodeListOf<HTMLElement> = document.querySelectorAll('.grid-square');
-  const squaresArray = Array.from(squares);
-  squares.forEach(square => {
-    const squareListener = (e: MouseEvent) => {
-      e.preventDefault();
-      if (e.button === 2) { // 0 è sinistro, 1 è centrale, 2 è destro
-        isDraggingRightClick = true;
-        square.classList.remove('active');
-      } else {
-        brush(brushType, squaresArray, e.target, squares, cols);
-        square.classList.add('active'); // Seleziona il primo quadrato
-      }
-      startSquare = square;
-      isMouseDown = true;
-      selectedSquares.clear(); // Pulisce le selezioni precedenti
-      selectedSquares.add(square);
-    };
-    square.removeEventListener('mousedown', squareListener);
-    square.addEventListener('mousedown', squareListener);
+let isMouseDown = false;
+let startSquare: HTMLElement | null = null;
+let selectedSquares: Set<HTMLElement> = new Set();
+let isDraggingRightClick = false;
 
-    const squareOverListener = (e: MouseEvent) => {
-      if (!isMouseDown || !startSquare) return;
-      const currentSquare = e.target as HTMLElement;
-      if (currentSquare.classList.contains('grid-square') && !selectedSquares.has(currentSquare)) {
-        if (isDraggingRightClick) {
-          currentSquare.classList.remove('active', 'selected');
-        } else {
-          brush(brushType, squaresArray, e.target, squares, cols);
-          currentSquare.classList.add('active');
-        }
-        selectedSquares.add(currentSquare);
-      }
-    };
-    square.removeEventListener('mouseover', squareOverListener);
-    square.addEventListener('mouseover', squareOverListener);
+// Variabili globali per memorizzare i riferimenti ai listener
+let squareListenerRef: ((e: MouseEvent) => void) | null = null;
+let squareOverListenerRef: ((e: MouseEvent) => void) | null = null;
+let squareUpListenerRef: ((e: MouseEvent) => void) | null = null;
+
+// Funzione per rimuovere tutti i vecchi listener
+function removeOldListeners(): void {
+  const squares: NodeListOf<HTMLElement> = document.querySelectorAll('.grid-square');
+  squares.forEach(square => {
+    if (squareListenerRef) {
+      square.removeEventListener('mousedown', squareListenerRef);
+    }
+    if (squareOverListenerRef) {
+      square.removeEventListener('mouseover', squareOverListenerRef);
+    }
   });
 
-  // Listener globale per 'mouseup' per fermare il tracciamento
-  const squareUpListener = (event: MouseEvent) => {
+  if (squareUpListenerRef) {
+    document.removeEventListener('mouseup', squareUpListenerRef);
+  }
+}
+
+// Funzione principale per aggiungere nuovi listener
+function addSquareListeners(brushType: BrushType, cols: number): void {
+  // Rimuove i vecchi listener prima di applicare i nuovi
+  removeOldListeners();
+
+  const squares: NodeListOf<HTMLElement> = document.querySelectorAll('.grid-square');
+  const squaresArray = Array.from(squares);
+
+  // Dichiarazione dei listener con un nome, in modo che possano essere rimossi
+  squareListenerRef = (e: MouseEvent) => {
+    e.preventDefault();
+    if (e.button === 2) {
+      isDraggingRightClick = true;
+      (e.target as HTMLElement).classList.remove('active');
+    } else {
+      brush(brushType, squaresArray, e.target as HTMLElement, squares, cols);
+      (e.target as HTMLElement).classList.add('active');
+    }
+    startSquare = e.target as HTMLElement;
+    isMouseDown = true;
+    selectedSquares.clear();
+    selectedSquares.add(e.target as HTMLElement);
+  };
+
+  squareOverListenerRef = (e: MouseEvent) => {
+    if (!isMouseDown || !startSquare) return;
+    const currentSquare = e.target as HTMLElement;
+    if (currentSquare.classList.contains('grid-square') && !selectedSquares.has(currentSquare)) {
+      if (isDraggingRightClick) {
+        currentSquare.classList.remove('active', 'selected');
+      } else {
+        brush(brushType, squaresArray, currentSquare, squares, cols);
+        currentSquare.classList.add('active');
+      }
+      selectedSquares.add(currentSquare);
+      console.log('brushType listener: ', brushType);
+    }
+  };
+
+  squareUpListenerRef = (event: MouseEvent) => {
     if (isDraggingRightClick || isMouseDown) {
       event.preventDefault();
       isDraggingRightClick = false;
@@ -78,8 +104,66 @@ function addSquareListeners(brushType: BrushType, cols: number): void {
       startSquare = null;
     }
   };
-  document.removeEventListener('mouseup', squareUpListener);
-  document.addEventListener('mouseup', squareUpListener);
+
+  // Applicazione dei nuovi listener
+  squares.forEach(square => {
+    square.addEventListener('mousedown', squareListenerRef as (e: MouseEvent) => void);
+    square.addEventListener('mouseover', squareOverListenerRef as (e: MouseEvent) => void);
+  });
+  document.addEventListener('mouseup', squareUpListenerRef as (e: MouseEvent) => void);
 }
+
+// Funzione per aggiungere listener ai quadrati
+// function addSquareListeners(brushType: BrushType, cols: number): void {
+//   const squares: NodeListOf<HTMLElement> = document.querySelectorAll('.grid-square');
+//   const squaresArray = Array.from(squares);
+//   squares.forEach(square => {
+//     const squareListener = (e: MouseEvent) => {
+//       e.preventDefault();
+//       if (e.button === 2) { // 0 è sinistro, 1 è centrale, 2 è destro
+//         isDraggingRightClick = true;
+//         square.classList.remove('active');
+//       } else {
+//         brush(brushType, squaresArray, e.target, squares, cols);
+//         square.classList.add('active'); // Seleziona il primo quadrato
+//       }
+//       startSquare = square;
+//       isMouseDown = true;
+//       selectedSquares.clear(); // Pulisce le selezioni precedenti
+//       selectedSquares.add(square);
+//     };
+//     square.removeEventListener('mousedown', squareListener);
+//     square.addEventListener('mousedown', squareListener);
+//
+//     const squareOverListener = (e: MouseEvent) => {
+//       if (!isMouseDown || !startSquare) return;
+//       const currentSquare = e.target as HTMLElement;
+//       if (currentSquare.classList.contains('grid-square') && !selectedSquares.has(currentSquare)) {
+//         if (isDraggingRightClick) {
+//           currentSquare.classList.remove('active', 'selected');
+//         } else {
+//           brush(brushType, squaresArray, e.target, squares, cols);
+//           currentSquare.classList.add('active');
+//         }
+//         selectedSquares.add(currentSquare);
+//       }
+//       console.log('squareOverListener brushType: ', brushType);
+//     };
+//     square.removeEventListener('mouseover', squareOverListener);
+//     square.addEventListener('mouseover', squareOverListener);
+//   });
+//
+//   // Listener globale per 'mouseup' per fermare il tracciamento
+//   const squareUpListener = (event: MouseEvent) => {
+//     if (isDraggingRightClick || isMouseDown) {
+//       event.preventDefault();
+//       isDraggingRightClick = false;
+//       isMouseDown = false;
+//       startSquare = null;
+//     }
+//   };
+//   document.removeEventListener('mouseup', squareUpListener);
+//   document.addEventListener('mouseup', squareUpListener);
+// }
 
 export { createGrid, addSquareListeners };

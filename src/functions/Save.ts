@@ -2,6 +2,12 @@
 interface SquareState {
   s: boolean;
 }
+interface Map {
+
+}
+interface Maps {
+
+}
 
 // Filter map name for technical ID.
 const mapNameFn = (mapName: string) => mapName.replaceAll(' ', '');

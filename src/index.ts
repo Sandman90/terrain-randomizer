@@ -16,14 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
     gridRows = parseInt((document.getElementById('grid-range-rows') as HTMLInputElement).value);
     gridCols = parseInt((document.getElementById('grid-range') as HTMLInputElement).value);
     createGrid(gridRows, gridCols, brushType as BrushType);
+    createGridBtn.disabled = true;
   });
   (document.getElementById('clear-btn') as HTMLButtonElement).addEventListener('click', () => {
     createGrid(gridRows, gridCols, brushType as BrushType);
   });
 
+  (document.getElementById('grid-range-rows') as HTMLElement).addEventListener('change', (e: Event | null) => {
+    gridRows = parseInt((e?.target as HTMLInputElement).value);
+    (document.getElementById('grid-label') as HTMLElement).innerText = gridCols + 'x' + gridRows;
+    createGridBtn.disabled = false;
+  });
   (document.getElementById('grid-range') as HTMLElement).addEventListener('change', (e: Event | null) => {
     gridCols = parseInt((e?.target as HTMLInputElement).value);
     (document.getElementById('grid-label') as HTMLElement).innerText = gridCols + 'x' + gridRows;
+    createGridBtn.disabled = false;
   });
 
   (document.getElementById('randomize-btn') as HTMLButtonElement).addEventListener('click', randomizeSquare);
@@ -41,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (document.querySelectorAll('input[name="brush-options"]')).forEach(radio => {
     radio.addEventListener('click', (e: Event) => {
       brushType = (e?.target as HTMLInputElement).value;
+      console.log('brushType: ', brushType);
       addSquareListeners(brushType as BrushType, gridCols);
     });
   });
