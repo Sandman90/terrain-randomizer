@@ -92,7 +92,7 @@ function addSquareListeners(brushType: BrushType, cols: number): void {
         currentSquare.classList.add('active');
       }
       selectedSquares.add(currentSquare);
-      console.log('brushType listener: ', brushType);
+      // console.log('brushType listener: ', brushType);
     }
   };
 

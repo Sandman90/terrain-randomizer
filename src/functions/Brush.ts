@@ -33,14 +33,18 @@ function brushBox(squaresArray: HTMLElement[], e: EventTarget | null, squares: N
   const currentIndex = squaresArray.indexOf(e as HTMLElement);
   // Up/Down.
   const aboveIndex = currentIndex - cols;
+  // Up (left/right).
   if (aboveIndex - 1 >= 0) {
-    squares[aboveIndex - 1].classList.add('active');
-    squares[aboveIndex + 1].classList.add('active');
+    if ((currentIndex % cols) !== 0) squares[aboveIndex - 1].classList.add('active');
+    if (((currentIndex + 1) % cols) !== 0) squares[aboveIndex + 1].classList.add('active');
+    console.log('aboveIndex: ', currentIndex + 1, cols, ((currentIndex + 1) % cols));
   }
   const belowIndex = currentIndex + cols;
-  if (belowIndex + 1 < squares.length) {
-    squares[belowIndex - 1].classList.add('active');
-    squares[belowIndex + 1].classList.add('active');
+  // Down (left/right).
+  if ((belowIndex + 1) < squares.length) {
+    if ((currentIndex % cols) !== 0) squares[belowIndex - 1].classList.add('active');
+    if (((currentIndex + 1) % cols) !== 0) squares[belowIndex + 1].classList.add('active');
+    console.log('belowIndex: ', currentIndex, cols, (currentIndex % cols));
   }
   brushCross(squaresArray, e, squares, cols);
 }
