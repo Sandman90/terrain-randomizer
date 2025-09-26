@@ -1,7 +1,13 @@
 import randomizeSquare from "./functions/randomizeSquare";
 import { createGrid, addSquareListeners } from "./functions/Grid";
 import { BrushType } from "./functions/Brush";
-import {saveMapToLocalStorage, loadMapFromLocalStorage, MapData} from "./functions/Save";
+import {
+  saveMapToLocalStorage,
+  loadMapFromLocalStorage,
+  MapData,
+  removeMapFromLocalStorage,
+  getSavedMapNames
+} from "./functions/Save";
 import {back, BackType} from "./functions/Background";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let gridCols: number = 15;
   let gridRows: number = 15;
   const gridContainer: HTMLElement = document.getElementById('grid-container') as HTMLElement;
+
+  getSavedMapNames();
 
   // Active every square selected.
   const createGridBtn: HTMLButtonElement = document.getElementById('create-grid-btn') as HTMLButtonElement;
@@ -55,6 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[index].classList.remove('active');
       }
     });
+  });
+  (document.getElementById('delete-save-btn') as HTMLButtonElement).addEventListener('click', () => {
+    const mapName = (document.getElementById('map-names') as HTMLInputElement).value;
+    removeMapFromLocalStorage(mapName);
   });
 
   (document.querySelectorAll('input[name="brush-options"]')).forEach(radio => {

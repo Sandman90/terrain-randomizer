@@ -108,17 +108,23 @@ function loadMapFromLocalStorage(mapName: string): MapData | null {
 //   }
 // }
 
-function getSavedMapNames(): string[] {
+function getSavedMapNames(): void {
   const savedNames = localStorage.getItem('mapNames');
+  let savedNamesArray: string[] = [];
   if (savedNames) {
     try {
-      return JSON.parse(savedNames) as string[];
+      savedNamesArray = JSON.parse(savedNames) as string[];
     } catch (e) {
       console.error('Error reading saved map names list.', e);
-      return [];
     }
+    const mapNamesSelect = document.getElementById('map-names') as HTMLSelectElement;
+    savedNamesArray.forEach((mapName: string) => {
+      const newOption = document.createElement('option');
+      newOption.value = mapNameFn(mapName); // Il valore effettivo dell'opzione
+      newOption.textContent = mapName; // Il testo visibile all'utente
+      mapNamesSelect.appendChild(newOption);
+    });
   }
-  return [];
 }
 
 function removeMapFromLocalStorage(mapName: string): void {
@@ -137,6 +143,27 @@ function removeMapFromLocalStorage(mapName: string): void {
   // Filter out the name to be removed
   const updatedMapNames = mapNames.filter(name => name !== mapName);
   localStorage.setItem('mapNames', JSON.stringify(updatedMapNames));
+  // Get the select element
+  const mapNamesSelect = document.getElementById('map-names') as HTMLSelectElement;
+  // Filter map name for technical ID (the option's value)
+  if (mapNamesSelect) {
+    // Iterate over all options in the select element
+    for (let i = 0; i < mapNamesSelect.options.length; i++) {
+      const option = mapNamesSelect.options[i];
+
+      // Check if the option's value matches the filtered map name
+      if (option.value === mapName) {
+        // Remove the option at the found index
+        mapNamesSelect.remove(i);
+        console.log(`Option for map "${mapName}" removed from select.`);
+
+        // Break the loop once the option is removed
+        break;
+      }
+    }
+  } else {
+    console.warn('Select element with ID "map-names" not found.');
+  }
 
   console.log(`Map "${mapName}" removed successfully.`);
 }
