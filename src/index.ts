@@ -1,7 +1,7 @@
 import randomizeSquare from "./functions/randomizeSquare";
 import { createGrid, addSquareListeners } from "./functions/Grid";
 import { BrushType } from "./functions/Brush";
-import { saveMapToLocalStorage, loadMapFromLocalStorage } from "./functions/Save";
+import {saveMapToLocalStorage, loadMapFromLocalStorage, MapData} from "./functions/Save";
 import {back, BackType} from "./functions/Background";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -38,11 +38,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   (document.getElementById('save-btn') as HTMLButtonElement).addEventListener('click', () => {
     const mapName = (document.getElementById('map-name') as HTMLInputElement).value;
-    saveMapToLocalStorage(gridContainer, mapName);
+    saveMapToLocalStorage(gridContainer, mapName, gridRows, gridCols);
   });
   (document.getElementById('load-btn') as HTMLButtonElement).addEventListener('click', () => {
     const mapName = (document.getElementById('map-names') as HTMLInputElement).value;
-    loadMapFromLocalStorage(gridContainer, mapName);
+    const mapData: MapData | null = loadMapFromLocalStorage(mapName);
+    gridRows = mapData?.rows ?? gridRows;
+    gridCols = mapData?.cols ?? gridCols;
+    createGrid(gridRows, gridCols, brushType as BrushType);
+    // Applica lo stato salvato a ogni quadrato della griglia
+    const squares = Array.from(gridContainer.children) as HTMLElement[];
+    mapData?.squares?.forEach((data, index) => {
+      if (data.s) {
+        squares[index].classList.add('active');
+      } else {
+        squares[index].classList.remove('active');
+      }
+    });
   });
 
   (document.querySelectorAll('input[name="brush-options"]')).forEach(radio => {
