@@ -37,7 +37,7 @@ h2 {
 
 #grid-container {
     display: grid;
-    border: 1px solid black;
+    border: 1px solid rgb(140, 140, 140);
     margin: 20px auto;
     background: url("../images/BackgroundTerrain1.jpg");
     grid-gap: 0;
@@ -49,9 +49,10 @@ h2 {
     /** width: 52px; */
     height: 40px;
     /* border: 1px solid #ccccccc9; */
-    border: 1px solid rgba(63, 63, 63, 0.79);
+    border: 1px solid rgba(63, 62, 62, 0.78);
     box-sizing: border-box;
-    background-color: #f0f0f09c;
+    /* background-color: #f0f0f09c; */
+    background-color: rgba(24, 24, 24, 0.68);
 }
 
 .active {
@@ -59,5 +60,5 @@ h2 {
     /* background-color: #4bb24d; Active square color */
 }
 .selected {
-    background-color: rgba(164, 1, 27, 0.82); /* Colore per il quadrato selezionato */
+    background-color: rgba(164, 1, 27, 0.7); /* Colore per il quadrato selezionato */
 }
