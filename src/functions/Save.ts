@@ -4,7 +4,6 @@ import {BackType} from "./Background";
 interface SquareState {
   s: boolean;
 }
-
 // Interface for the saved map data, including square states and dimensions
 interface MapData {
   rows: number;
@@ -12,7 +11,6 @@ interface MapData {
   back: BackType;
   squares: SquareState[];
 }
-
 // Interface for the list of saved map names and values
 interface SavedMapName {
   name: string;
@@ -21,8 +19,6 @@ interface SavedMapName {
 
 // Filter map name for technical ID.
 const mapNameFn = (mapName: string) => mapName.replaceAll(' ', '');
-
-// ---
 
 function saveMapToLocalStorage(gridContainer: HTMLElement, mapName: string, gridRows: number, gridCols: number, backType: string = 'earth'): void {
   const squares = Array.from(gridContainer.children) as HTMLElement[];
@@ -66,8 +62,6 @@ function saveMapToLocalStorage(gridContainer: HTMLElement, mapName: string, grid
 
   console.log(`Map "${mapName}" saved successfully.`);
 }
-
-// ---
 
 function loadMapFromLocalStorage(mapValue: string): MapData | null {
   // Use the map value (which is the filtered name/technical ID) for retrieval

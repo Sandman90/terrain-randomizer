@@ -1,12 +1,12 @@
 
 // Funzione per randomizzare un quadrato con annotazioni di tipo
-export default function randomizeSquare(): void {
+export default function randomize(): void {
   // Seleziona tutti gli elementi con la classe 'grid-square'
   const squares: NodeListOf<HTMLElement> = document.querySelectorAll('.grid-square.active');
 
   // Verifica se ci sono quadrati nella griglia
   if (squares.length === 0) {
-    alert('Per favore, crea prima una griglia!');
+    alert('Create a grid first.');
     return;
   }
 

@@ -1,4 +1,4 @@
-import randomizeSquare from "./functions/randomizeSquare";
+import randomize from "./functions/Randomize";
 import { createGrid, addSquareListeners } from "./functions/Grid";
 import { BrushType } from "./functions/Brush";
 import {
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createGridBtn.disabled = false;
   });
 
-  (document.getElementById('randomize-btn') as HTMLButtonElement).addEventListener('click', randomizeSquare);
+  (document.getElementById('randomize-btn') as HTMLButtonElement).addEventListener('click', randomize);
   // Chiama la funzione di randomizzazione al click del pulsante.
 
   (document.getElementById('save-btn') as HTMLButtonElement).addEventListener('click', () => {
