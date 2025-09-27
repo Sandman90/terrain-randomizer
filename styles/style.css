@@ -8,6 +8,8 @@ body {
     margin: 20px auto;
     background: url("../images/BackgroundTerrain1.jpg");
     grid-gap: 0;
+    border-radius: 0.4rem;
+    overflow: hidden;
 }
 
 .grid-square {
