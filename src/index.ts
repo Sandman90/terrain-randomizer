@@ -12,6 +12,7 @@ import {back, BackType} from "./functions/Background";
 
 document.addEventListener('DOMContentLoaded', () => {
   let brushType: string = 'cross';
+  let backType: BackType = 'earth';
   let gridCols: number = 15;
   let gridRows: number = 15;
   const gridContainer: HTMLElement = document.getElementById('grid-container') as HTMLElement;
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   (document.getElementById('save-btn') as HTMLButtonElement).addEventListener('click', () => {
     const mapName = (document.getElementById('map-name') as HTMLInputElement).value;
-    saveMapToLocalStorage(gridContainer, mapName, gridRows, gridCols);
+    saveMapToLocalStorage(gridContainer, mapName, gridRows, gridCols, backType);
   });
   (document.getElementById('load-btn') as HTMLButtonElement).addEventListener('click', () => {
     const mapName = (document.getElementById('map-names') as HTMLInputElement).value;
@@ -54,6 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
     gridRows = mapData?.rows ?? gridRows;
     gridCols = mapData?.cols ?? gridCols;
     createGrid(gridRows, gridCols, brushType as BrushType);
+    backType = (mapData?.back ?? backType) as BackType;
+    back(gridContainer, backType);
     // Applica lo stato salvato a ogni quadrato della griglia
     const squares = Array.from(gridContainer.children) as HTMLElement[];
     mapData?.squares?.forEach((data, index) => {
@@ -64,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-  (document.getElementById('delete-save-btn') as HTMLButtonElement).addEventListener('click', () => {
+  (document.getElementById('delete-btn') as HTMLButtonElement).addEventListener('click', () => {
     const mapName = (document.getElementById('map-names') as HTMLInputElement).value;
     removeMapFromLocalStorage(mapName);
   });
@@ -77,7 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   (document.querySelectorAll('input[name="back-options"]')).forEach(radio => {
-    radio.addEventListener('click', (e: Event) => back(gridContainer, ((e?.target as HTMLInputElement).value as BackType)));
+    radio.addEventListener('click', (e: Event) => {
+      backType = (e?.target as HTMLInputElement).value as BackType;
+      back(gridContainer, backType);
+    });
   });
 
   gridContainer.addEventListener('contextmenu', (e) => e.preventDefault());

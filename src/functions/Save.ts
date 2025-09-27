@@ -1,5 +1,7 @@
 
 // Interface for the state of a single square
+import {BackType} from "./Background";
+
 interface SquareState {
   s: boolean;
 }
@@ -8,6 +10,7 @@ interface SquareState {
 interface MapData {
   rows: number;
   cols: number;
+  back: BackType;
   squares: SquareState[];
 }
 
@@ -19,11 +22,12 @@ interface SavedMapNames {
 // Filter map name for technical ID.
 const mapNameFn = (mapName: string) => mapName.replaceAll(' ', '');
 
-function saveMapToLocalStorage(gridContainer: HTMLElement, mapName: string, gridRows: number, gridCols: number): void {
+function saveMapToLocalStorage(gridContainer: HTMLElement, mapName: string, gridRows: number, gridCols: number, backType: string = 'earth'): void {
   const squares = Array.from(gridContainer.children) as HTMLElement[];
   const mapData: MapData = {
     rows: gridRows,
     cols: gridCols,
+    back: backType as BackType,
     squares: squares.map(square => ({
       s: square.classList.contains('active')
     }))
