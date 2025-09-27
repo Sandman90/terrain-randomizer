@@ -48,7 +48,8 @@ h2 {
 .grid-square {
     /** width: 52px; */
     height: 40px;
-    border: 1px solid #ccccccc9;
+    /* border: 1px solid #ccccccc9; */
+    border: 1px solid rgba(63, 63, 63, 0.79);
     box-sizing: border-box;
     background-color: #f0f0f09c;
 }
