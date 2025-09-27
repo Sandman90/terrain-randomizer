@@ -19,7 +19,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist'),
         // filename: "[name]-bundle.js"
-        filename: "terrain-randomizer.js"
+        filename: "bootstrap.bundle.min.js"
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
