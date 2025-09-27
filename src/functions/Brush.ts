@@ -37,14 +37,12 @@ function brushBox(squaresArray: HTMLElement[], e: EventTarget | null, squares: N
   if (aboveIndex - 1 >= 0) {
     if ((currentIndex % cols) !== 0) squares[aboveIndex - 1].classList.add('active');
     if (((currentIndex + 1) % cols) !== 0) squares[aboveIndex + 1].classList.add('active');
-    console.log('aboveIndex: ', currentIndex + 1, cols, ((currentIndex + 1) % cols));
   }
   const belowIndex = currentIndex + cols;
   // Down (left/right).
   if ((belowIndex + 1) < squares.length) {
     if ((currentIndex % cols) !== 0) squares[belowIndex - 1].classList.add('active');
     if (((currentIndex + 1) % cols) !== 0) squares[belowIndex + 1].classList.add('active');
-    console.log('belowIndex: ', currentIndex, cols, (currentIndex % cols));
   }
   brushCross(squaresArray, e, squares, cols);
 }
