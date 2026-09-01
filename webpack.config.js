@@ -39,16 +39,16 @@ module.exports = {
                 // Obfuscator options for high illegibility:
                 rotateStringArray: true,
                 compact: true,
-                controlFlowFlattening: true, // Highest level of obfuscation
-                deadCodeInjection: true,
-                debugProtection: true,
+                controlFlowFlattening: true, // Highest level of obfuscation.
+                deadCodeInjection: false,
+                debugProtection: false,
                 // The 'stringArrayThreshold' controls how many strings are moved to the array.
                 stringArrayThreshold: 1,
                 // Set to 'low' for obfuscation that's hard to debug but still runs fast.
                 // Use 'high' for maximum illegibility (can increase file size).
                 target: 'browser',
             },
-            ['terrain-randomizer.js'] // Apply only to your output file
+            ['terrain-randomizer.js'] // Apply only to your output file.
         )
     ]
 };

@@ -28,85 +28,92 @@
 </head>
 <body>
 <div class="clearfix m-auto my-1">
-    <div class="card float-start m-1 mt-0 d-print-none" style="width: 19rem;">
-        <!--img src="..." class="card-img-top" alt="..."-->
-        <div class="card-body">
-            <h4 class="card-title">Terrain randomizer</h4>
-            <p class="card-text">Select a map and randomize spawn point.</p>
+    <div id="side-bar">
+        <div class="card m-1 mt-0 d-print-none" style="width: 19rem;">
+            <!--img src="..." class="card-img-top" alt="..."-->
+            <div class="card-body">
+                <h4 class="card-title">Terrain randomizer</h4>
+                <p class="card-text">Select a map and randomize spawn point.</p>
 
-            <div class="form-group row">
-                <div class="col-7">
-                    <input type="range" class="form-control-range" id="grid-range"
-                           min="10" max="30" value="15">
-                    <input type="range" class="form-control-range" id="grid-range-rows"
-                           min="10" max="25" value="15">
+                <div class="form-group row">
+                    <div class="col-7">
+                        <input type="range" class="form-control-range" id="grid-range"
+                               min="10" max="30" value="15">
+                        <input type="range" class="form-control-range" id="grid-range-rows"
+                               min="10" max="25" value="15">
+                    </div>
+                    <div class="col-5">
+                        <button id="create-grid-btn" class="btn btn-primary btn-sm">Create grid</button><br>
+                        <label for="grid-range" id="grid-label" class="text-start">15x15</label>
+                    </div>
                 </div>
-                <div class="col-5">
-                    <button id="create-grid-btn" class="btn btn-primary btn-sm">Create grid</button><br>
-                    <label for="grid-range" id="grid-label" class="text-start">15x15</label>
+
+                <hr>
+                <button id="randomize-btn" class="btn btn-primary btn-lg m-1 mx-auto">Randomize!</button>
+                <button id="clear-btn" class="btn btn-outline-danger m-1 mx-auto">Clear</button>
+
+                <hr>
+                <h5>Brushes</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="brush-options" id="brush-point" value="point">
+                    <label class="form-check-label" for="brush-point">Point</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="brush-options" id="brush-cross" value="cross" checked="checked">
+                    <label class="form-check-label" for="brush-cross">Cross</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="brush-options" id="brush-box" value="box">
+                    <label class="form-check-label" for="brush-box">Square</label>
+                </div>
+                <h5 class="mt-3">Backgrounds</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="back-options" id="back-earth" value="earth" checked="checked">
+                    <label class="form-check-label" for="back-earth">Earth</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="back-options" id="back-rock" value="rock">
+                    <label class="form-check-label" for="back-rock">Rock</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="back-options" id="back-wood" value="wood">
+                    <label class="form-check-label" for="back-wood">Wood</label>
+                </div>
+
+                <hr>
+
+                <div class="form-inline">
+                    <div class="input-group mb-2 mr-sm-2">
+                        <!-- div class="input-group-prepend">
+                            <div class="input-group-text">Label</div>
+                        </div -->
+                        <label for="map-name"></label>
+                        <input type="text" class="form-control" id="map-name" placeholder="Map name">
+                        <button id="save-btn" class="btn btn-primary ms-1">Save</button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="form-group">
+                        <!-- label for="exampleFormControlSelect2">Example multiple select</label -->
+                        <label for="map-names"></label>
+                        <select size="4" class="form-control" id="map-names"></select>
+                    </div>
+                    <button id="load-btn" class="btn btn-dark m-2 mx-auto">Load map</button>
+                    <button id="delete-btn" class="btn btn-outline-danger m-2 mx-auto">Delete</button>
                 </div>
             </div>
-
-            <hr>
-            <button id="randomize-btn" class="btn btn-primary btn-lg m-1 mx-auto">Randomize!</button>
-            <button id="clear-btn" class="btn btn-outline-danger m-1 mx-auto">Clear</button>
-
-            <hr>
-            <h5>Brushes</h5>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="brush-options" id="brush-point" value="point">
-                <label class="form-check-label" for="brush-point">Point</label>
+        </div>
+        <div id="credits" class="float-start m-1">
+            <p>Created by</p>
+            <div id="logo">
+                <a class="logo" href="https://sandbay.it/" target="_blank"><span class="sr-only">SandBay</span></a>
+                <a class="logo hover" href="https://sandbay.it/" target="_blank"><span class="sr-only">SandBay</span></a>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="brush-options" id="brush-cross" value="cross" checked="checked">
-                <label class="form-check-label" for="brush-cross">Cross</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="brush-options" id="brush-box" value="box">
-                <label class="form-check-label" for="brush-box">Square</label>
-            </div>
-            <h5 class="mt-3">Backgrounds</h5>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="back-options" id="back-earth" value="earth" checked="checked">
-                <label class="form-check-label" for="back-earth">Earth</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="back-options" id="back-rock" value="rock">
-                <label class="form-check-label" for="back-rock">Rock</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="back-options" id="back-wood" value="wood">
-                <label class="form-check-label" for="back-wood">Wood</label>
-            </div>
-
-            <hr>
-
-            <div class="form-inline">
-                <div class="input-group mb-2 mr-sm-2">
-                    <!-- div class="input-group-prepend">
-                        <div class="input-group-text">Label</div>
-                    </div -->
-                    <label for="map-name"></label>
-                    <input type="text" class="form-control" id="map-name" placeholder="Map name">
-                    <button id="save-btn" class="btn btn-primary ms-1">Save</button>
-                </div>
-            </div>
-
-            <div>
-                <div class="form-group">
-                    <!-- label for="exampleFormControlSelect2">Example multiple select</label -->
-                    <label for="map-names"></label>
-                    <select size="4" class="form-control" id="map-names"></select>
-                </div>
-                <button id="load-btn" class="btn btn-dark m-2 mx-auto">Load map</button>
-                <button id="delete-btn" class="btn btn-outline-danger m-2 mx-auto">Delete</button>
-            </div>
-
-
         </div>
     </div>
 
-    <div class="float-start border-info col-2">
+    <div id="map-container" class="float-start border-info col-2">
         <div id="grid-container" class="m-0"></div>
     </div>
 </div>

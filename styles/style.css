@@ -34,6 +34,18 @@ h2 {
     color: #b1adad;
 }
 
+#side-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    color: #ffffff;
+    box-sizing: border-box;
+}
+
+#map-container {
+    margin-left: 20rem;
+}
 
 #grid-container {
     display: grid;
@@ -61,4 +73,53 @@ h2 {
 }
 .selected {
     background-color: rgba(164, 1, 27, 0.7); /* Colore per il quadrato selezionato */
+}
+
+/** Credits */
+#credits {
+    background-color: #321c45;
+    border-radius: 10px;
+    padding: 6px 24px;
+}
+#credits p {
+    margin-left: 3rem;
+    font-size: 14px;
+    margin-bottom: 2px;
+    font-style: italic;
+    color: #e6ceff;
+}
+#logo {
+    background-image: url(https://tools.obyte.it/assets/images/logo.webp);
+    float: left;
+    display: block;
+    margin: 0;
+    position: relative;
+}
+#logo:hover a.hover {
+    opacity: 1;
+}
+#logo a {
+    display: block;
+    width: 256px;
+    height: 49px;
+}
+#logo a.hover {
+    background-image: url(https://tools.obyte.it/assets/images/logoHover.webp);
+    width: 42px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }

@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   getSavedMapNames();
 
-  // Active every square selected.
+  // Attiva qualsiasi square selezionato.
   const createGridBtn: HTMLButtonElement = document.getElementById('create-grid-btn') as HTMLButtonElement;
   createGridBtn.addEventListener('click', () => {
     gridRows = parseInt((document.getElementById('grid-range-rows') as HTMLInputElement).value);
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createGrid(gridRows, gridCols, brushType as BrushType);
     backType = (mapData?.back ?? backType) as BackType;
     back(gridContainer, backType);
-    // Applica lo stato salvato a ogni quadrato della griglia
+    // Applica lo stato salvato a ogni quadrato della griglia.
     const squares = Array.from(gridContainer.children) as HTMLElement[];
     mapData?.squares?.forEach((data, index) => {
       if (data.s) {
@@ -87,6 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   gridContainer.addEventListener('contextmenu', (e) => e.preventDefault());
-  // Crea una griglia di dimensioni predefinite all'avvio della pagina
+  // Crea una griglia di dimensioni predefinite all'avvio della pagina.
   createGrid(gridRows, gridCols, brushType as BrushType);
 });
